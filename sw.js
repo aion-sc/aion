@@ -1,6 +1,6 @@
 /* AION S&C · service worker : l'appli s'ouvre même avec un réseau faible.
    Les données (Apps Script) ne sont jamais mises en cache. Change VERSION à chaque mise à jour du site. */
-const VERSION = 'aion-v1';
+const VERSION = 'aion-v3';
 const SHELL = ['./', 'index.html', 'config.js', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== VERSION).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
